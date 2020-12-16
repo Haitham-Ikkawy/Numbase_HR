@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h3 class="text-center mt-2">Account Edit Form</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6  offset-md-3">
+            <form class="form-signin" method="post">{% csrf_token %}
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <label><b>Email</label></b>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus
+                        value={{account_form.initial.email}}>
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <label><b>Username</label></b>
+                    <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required
+                        value="{{account_form.initial.username}}">
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <label><b>First Name</label></b>
+                    <input type="text" name="first_name" id="inputfirst_name" class="form-control" placeholder="first_name" required
+                        value="{{account_form.initial.first_name}}">
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <label><b>First Name</label></b>
+                    <input type="text" name="last_name" id="inputlast_name" class="form-control" placeholder="last_name" required
+                        value="{{account_form.initial.last_name}}">
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <label><b>First Name</label></b> 
+                    <input type="text" name="phone_number" id="inputphone_number" class="form-control" placeholder="phone_number" required
+                        value="{{account_form.initial.phone_number}}">
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    {% for field in account_form %}
+                        <p>
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+                    {% if account_form.non_field_errors %}
+                        <div style="color: red">
+                            <p>{{account_form.non_field_errors}}</p>
+                        </div>
+                    {% endif %}
+                    {% if success_message %}
+                        <p style="color:green; text-align: center;">{{success_message}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 col-lg-12 mb-1">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>
+                </div>
+            </form>
+            <div class="d-flex flex-column">
+                <a class="m-auto" href="{% url 'password_reset' %}">Reset password</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

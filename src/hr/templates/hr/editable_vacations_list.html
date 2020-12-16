@@ -1,0 +1,298 @@
+{% extends 'base.html' %}{% block content %}
+{% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <h3 class="text-center mt-2 md-2">Vacations Editable View</h3>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-4 col-md-4">
+      <h5>Allowed Vacations Days: <b class="text-danger">{{vacations_days}}</b></h5>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <h3>Days Off: <b class="text-danger">{{off_days}}</b></h3>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <h5>Remaining Vacations: <b class="text-danger">{{remaining_vacations}}</b></h5>
+    </div>
+  </div>
+  {% if remaining_vacations > 0%}
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#VacationAdiitionModal">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        Add Vacation
+      </button>
+    </div>
+  </div>
+
+  <!--modal contaning addition form-->
+  <div class="modal fade" id="VacationAdiitionModal" tabindex="-1" role="dialog"
+    aria-labelledby="VacationAdditionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="VacationAdditionModalLabel">
+            Vacation Addition Form
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="additionForm" action="">
+            {% csrf_token %}
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12 mb-1">
+                  <input type="text" name="description" id="inputEmail" class="form-control"
+                    placeholder="Vacation Description" minlength="6" />
+                </div>
+                <div class="col-md-12 mb-1">
+                  <input type="text" name="fromDatePicker" id="fromDatePicker" class="form-control"
+                    placeholder="From Date" minlength="10" />
+                </div>
+                <div class="col-md-12 mb-1">
+                  <input type="text" name="toDatePicker" id="toDatePicker" class="form-control" placeholder="To Date"
+                    minlength="10" />
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <input type="submit" id="submit" name="submit" class="btn btn-primary">
+          <span id="answers"></span>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <div id="editable_vacations_list"></div>
+    </div>
+  </div>
+  <script>
+
+    var dateEditor = function (cell, onRendered, success, cancel, editorParams) {
+      var editor = document.createElement("input");
+      editor.setAttribute("type", "date");
+      editor.style.padding = "3px";
+      editor.style.width = "100%";
+      editor.style.boxSizing = "border-box";
+      editor.value = moment(cell.getValue(), "YYYY-MM-DD").format("YYYY-MM-DD")
+      onRendered(function () {
+        editor.focus();
+        editor.style.css = "100%";
+      });
+      function successFunc() {
+        success(moment(editor.value, "YYYY-MM-DD").format("YYYY-MM-DD"));
+      }
+      editor.addEventListener("change", successFunc);
+      editor.addEventListener("blur", successFunc);
+      return editor;
+    };
+
+    getData(function (data) {
+      console.log(data)
+      var attendanceTable = new Tabulator("#editable_vacations_list", {
+        data: data,           //load row data from array
+        layout: "fitColumns",      //fit columns to width of table
+        responsiveLayout: "hide",  //hide columns that dont fit on the table
+        tooltips: true,            //show tool tips on cells
+        addRowPos: "top",          //when adding a new row, add it to the top of the table
+        history: true,             //allow undo and redo actions on the table
+        pagination: "local",       //paginate the data
+        paginationSize: 7,         //allow 7 rows per page of data
+        movableColumns: true,      //allow column order to be changed
+        resizableRows: true,       //allow row order to be changed
+        initialSort: [             //set the initial sort order of the data
+          { column: "check_in", dir: "asc" },
+        ],
+        columns: [            //define the table columns
+          { title: "Check In", field: "check_in", editor: false },
+          { title: "Check Out", field: "check_out", editor: false },
+        ],
+      });
+
+      var vacationsTable = new Tabulator("#editable_vacations_list", {
+        // on table cell click
+        cellClick: function (e, row) {
+          console.log(row)
+          console.log(row)
+          var typeOfrequest = ""
+          // if the cell is a delete button
+          if (row._cell.column.definition.title == "Delete") {
+            if (confirm('Are you sure you want to delete this vacation')) {
+              typeOfrequest = "DELETE"
+              data = { vacationID: row._cell.row.data.id }
+              callAjax(typeOfrequest, data)
+            }
+          }
+          //if the cell is a save button
+          if (row._cell.column.definition.title == "Save") {
+            if (row._cell.row.data.description && row._cell.row.data.from_date && row._cell.row.data.to_date !== "") {
+              if (new Date(row._cell.row.data.to_date) > new Date(row._cell.row.data.from_date)) {
+                if (confirm('Are you sure you want to edit this vacation')) {
+                  typeOfrequest = "POST"
+                  callAjax(typeOfrequest, row._cell.row.data)
+                }
+              }
+              else {
+                alert('Please check the vacations dates (from / to)')
+              }
+            }
+            else {
+              alert("Please fill all the record in order to update")
+              location.reload();
+            }
+          }
+          function callAjax(type, data) {
+            console.log(data);
+            var token = '{{csrf_token}}';
+            $.ajax({
+              headers: { "X-CSRFToken": token },
+              url: "{% url 'vacationEdit' %}",
+              success: function (response) {
+                console.log(response);
+                alert(response)
+                location.reload();
+              },
+              data: data,
+              type: type,
+              error: function (error) {
+                alert(error)
+              }
+            });
+          }
+        },
+        data: data,           //load row data from array
+        layout: "fitColumns",      //fit columns to width of table
+        responsiveLayout: "hide",  //hide columns that dont fit on the table
+        tooltips: true,            //show tool tips on cells
+        addRowPos: "top",          //when adding a new row, add it to the top of the table
+        history: true,             //allow undo and redo actions on the table
+        pagination: "local",       //paginate the data
+        paginationSize: 7,         //allow 7 rows per page of data
+        movableColumns: true,      //allow column order to be changed
+        resizableRows: true,       //allow row order to be changed
+        initialSort: [             //set the initial sort order of the data
+          { column: "from_date", dir: "asc" },
+        ],
+        columns: [            //define the table columns
+          { title: "Description", field: "description", editor: "input" },
+          { title: "From Date", field: "from_date", editor: dateEditor },
+          { title: "To Date", field: "to_date", editor: dateEditor },
+          { title: "Duration in Days", field: "duration", editor: false }
+        ],
+      });
+
+      var DeleteButtonFormat = function (cell, formatterParams, onRendered) { //plain text value
+        var btn = document.createElement("BUTTON");   // Create a <button> element for deleting
+
+        btn.innerHTML = "Delete";
+        btn.classList.add("btn", "btn-sm", "btn-danger");
+        return btn;
+      };
+      vacationsTable.addColumn({
+        title: "Delete", field: "ID", formatter: DeleteButtonFormat, width: 100, align: "center", cellClick: function (e, cell) {
+        }
+      })
+    });
+
+    function getData(cb_func) {
+      $.ajax({
+        url: "{% url 'vacations' %}",
+        success: cb_func,
+      })
+    };
+
+    $("#fromDatePicker").datepicker({
+      showSecond: true,
+      dateFormat: "yy-mm-dd",
+      timeFormat: "hh:mm:ss"
+    });
+
+    $("#toDatePicker").datepicker({
+      showSecond: true,
+      dateFormat: "yy-mm-dd",
+      timeFormat: "hh:mm:ss"
+    });
+
+    function additionFormValidation() {
+      $("#additionForm").validate({ // initialize the plugin
+        rules: {
+          field1: {
+            required: true,
+            email: true
+          },
+          field2: {
+            required: true,
+            minlength: 5
+          }
+        },
+        submitHandler: function (form) { // for demo
+          return true; // for demo
+        }
+      });
+    }
+
+    $('#additionForm').validate({
+      rules: {
+        description: {
+          required: true,
+          minlength: 5
+        },
+        fromDatePicker: {
+          required: true,
+          date: true
+        },
+        toDatePicker: {
+          required: true,
+          date: true
+        }
+      },
+      submitHandler: function (form) {
+        var dateFrom = ($(form).find("#fromDatePicker").val());
+        var dateTo = ($(form).find("#toDatePicker").val());
+        if (new Date(dateTo) > new Date(dateFrom)) {
+          $.ajax({
+            url: "{% url 'vacationAddition' %}",
+            type: form.method,
+            data: $(form).serialize(),
+            success: function (response) {
+              alert(response)
+              location.reload();
+            },
+            error: function (response) {
+              console.log(response)
+            }
+          });
+        }
+        else {
+          alert('Please check the vacations dates (from / to)')
+        }
+      }
+    });
+  
+  </script>
+
+{% else %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <h3>Not Authenticated Please Login First</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div id="attendanceView"></div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

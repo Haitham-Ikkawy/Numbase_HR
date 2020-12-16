@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 offset-md-5">
+        <h3>Login Form</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6  offset-md-3">
+        <form class="form-signin" method="post"> {% csrf_token %}
+          <div class="col-md-12 col-lg-12 mb-1">
+            <label><b>Email</label></b>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+          </div>
+          <div class="col-md-12 col-lg-12 mb-1">
+            <label><b>Password</label></b>
+            <input type="password" name="password" id="inputPassword1" class="form-control" placeholder="Password" required
+              autofocus>
+          </div>
+          <div class="col-md-12 col-lg-12 mb-1">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          </div>
+          {% for field in login_form%}
+              {% for error in field.errors %}
+                  <div style="color:red;">
+                      <p>{{error}}</p>
+                  </div>
+              {% endfor %}
+          {% endfor %}
+
+          {% if login_form.non_field_errors %}
+              <div style="color:green;">
+                  <p>{{login_form.non_field_errors}}</p>
+              </div>
+          {% endif%}
+        </form>
+        <div class="d-flex flex-column">
+          <a class="m-auto" href="{% url 'password_reset' %}">Reset password</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

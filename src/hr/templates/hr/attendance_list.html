@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h3 class="text-center mt-2">Attendance View</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-6">
+            <h5 class="mt-2">Salary Details</h5>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Hour rate</th>
+                        <td><b class="text-danger">${{hour_rate}}/hour</b></td>
+                    </tr>
+                    <tr>
+                        <th>Salary bases on working hours</th>
+                        <td><b class="text-danger">${{salary_based_on_working_hours}}</b></td>
+                    </tr>
+                    <tr>
+                        <th>Salary bases on vacations</th>
+                        <td><b class="text-danger">${{salary_on_vacations}}</b></td>
+                    </tr>
+                    <tr>
+                        <th>Overall Salary</th>
+                        <td><b class="text-danger">${{overall_salary}}</b></td>
+                    </tr>
+                    <tr>
+                        <th>Month total working hour</th>
+                        <td><b class="text-danger">{{month_total_working_hour_count}} hours</b></td>
+                    </tr>
+                    <tr>
+                        <th>Total off days</th>
+                        <td><b class="text-danger">{{month_total_off_days}} Days</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <h5 class="mt-2">Checks List</h5>
+            <b>Current Time: </b>
+            <b class="text-danger">
+                <span id="date-part"></span>
+                <span id="time-part"></span>
+            </b>
+            <div class="row mb-2 mt-2">
+                <div class="col-lg-12 col-md-12">
+                    {% if not is_checked_in and not is_checked_out %}
+            
+                    <button class="btn btn-success checkInOUt">CheckIn</button>
+            
+                    {% elif is_checked_in and not is_checked_out%}
+            
+                    <button class="btn btn-danger checkInOUt">CheckOut</button>
+            
+                    {% elif not is_checked_in and is_checked_out%}
+            
+                    <button class="btn btn-success checkInOUt">CheckIn</button>
+            
+                    {% endif %}
+                </div>
+            </div>
+            <div id="attendance_table_View" class="mt-2"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <b class="mb-2 text-danger">
+                Note: If You Took A Days Off and your vacation balance is still under 16 days, then
+                the day will be calculated as a normal 8 hours day
+            </b>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.checkInOUt').click(function(){
+                inOrOut = this.innerHTML
+                if (confirm('Are you sure you want to '+ inOrOut)) {
+                    callAjax("POST", "{% url 'submitCheck' %}",{checkType: inOrOut})
+                }
+            });
+            
+            function callAjax(type, url, data) {
+                console.log(data);
+                var token = '{{csrf_token}}';
+                $.ajax({
+                    headers: { "X-CSRFToken": token },
+                    url: url,
+                    success: function (data) {
+                        console.log(data);
+                        alert("Data Saved Successfully");
+                        location.reload();
+                    },
+                    data: data,
+                    type: type,
+                    error: function (error) {
+                        alert(error)
+                    }
+                });
+            }
+
+            var interval = setInterval(function () {
+                var momentNow = moment();
+                $('#date-part').html(momentNow.format('YYYY-MM-DD') + ' '+ momentNow.format('dd')
+                        .substring(0, 3).toUpperCase());
+                $('#time-part').html(momentNow.format('A hh:mm:ss'));
+            }, 100);
+
+            getAttendanceList(function (data) {
+                console.log(data)
+                var attendanceTable = new Tabulator("#attendance_table_View", {
+                    data: data,           //load row data from array
+                    layout: "fitColumns",      //fit columns to width of table
+                    responsiveLayout: "hide",  //hide columns that dont fit on the table
+                    tooltips: true,            //show tool tips on cells
+                    addRowPos: "top",          //when adding a new row, add it to the top of the table
+                    history: true,             //allow undo and redo actions on the table
+                    pagination: "local",       //paginate the data
+                    paginationSize: 7,         //allow 7 rows per page of data
+                    movableColumns: true,      //allow column order to be changed
+                    resizableRows: true,       //allow row order to be changed
+                    initialSort: [             //set the initial sort order of the data
+                        { column: "check_in", dir: "asc" },
+                    ],
+                    columns: [            //define the table columns
+                        { title: "Check In", field: "check_in", editor: false },
+                        { title: "Check Out", field: "check_out", editor: false },
+                    ],
+                })
+            })
+
+            function getAttendanceList(cb_func) {
+                $.ajax({
+                    url: "{% url 'attendance_json_list' %}",
+                    success: cb_func,
+                })
+            };
+        });
+    </script>
+{% else %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h3>Not Authenticated Please Login First</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div id="attendance_list"></div>
+            </div>
+        </div>
+    </div>
+{% endif%}
+{% endblock %}

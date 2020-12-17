@@ -24,9 +24,10 @@ steps to run the project:
 
 1) git clone git@github.com:Haitham-Ikkawy/Numbase_HR.git
 2) run "pip install -r requirements.txt"
-2) run "py manage.py makemigrations"
-3) run "py manage.py migrate"
-4) run "py manage.py runserver"
+3) run "py manage.py makemigrations"
+4) run "py manage.py migrate"
+5) run "py manage.py loaddata < dumped_data.json"
+6) run "py manage.py runserver"
 
 
 

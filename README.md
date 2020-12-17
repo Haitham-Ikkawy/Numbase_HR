@@ -1,5 +1,7 @@
 Project Requirements:
+
 We need to build a small web application that can help employees to facilitate and manage their information.
+
 
 Once the employee login, he can:
 
@@ -11,6 +13,7 @@ Change personal information (First name, last name, email, phone number)
 See his previous attendance records
 See his salary auto calculated based on his hours attendance (An hour rate is set for each employee by the administrator) for the current month only.
 
+
 Added Features:
 
 Registration form (not active)
@@ -19,9 +22,11 @@ Password change
 Vacation addition from date to date
 Calculate salary based on working hourse and off days separately
 
+
 Usecase Diagram:
 
 ![NM -HR](https://user-images.githubusercontent.com/71630560/102553291-5398e580-40cb-11eb-8866-c9a2965024aa.png)
+
 
 steps to run the project:
 

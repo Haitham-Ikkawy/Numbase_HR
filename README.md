@@ -20,3 +20,13 @@ Vacation addition from date to date
 Calculate salary based on working hourse and off days separately
 
 
+steps to run the project:
+
+1) git clone git@github.com:Haitham-Ikkawy/Numbase_HR.git
+2) run "pip install -r requirements.txt"
+2) run "py manage.py makemigrations"
+3) run "py manage.py migrate"
+4) run "py manage.py runserver"
+
+
+

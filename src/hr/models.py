@@ -10,7 +10,7 @@ class Vacations(models.Model):
     description = models.CharField(max_length=60)
     from_date = models.DateField('From Date')
     to_date = models.DateField('To Date')
-    duration = models.IntegerField(max_length=2, null=True)
+    duration = models.IntegerField(null=True)
 
     # return the vacation description as a default attribute
     def __str__(self):
@@ -38,6 +38,23 @@ class Attendance(models.Model):
     class Meta:
         verbose_name = "Attendance"
         verbose_name_plural = "Employee Attendance"
+
+
+class SalaryInfo(models.Model):
+
+    auto_increment_id = models.AutoField
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    salary_based_on_working_hours = models.FloatField()
+    salary_on_vacations = models.FloatField()
+    overall_salary = models.FloatField()
+    month_total_working_hour_count = models.IntegerField()
+    month_total_off_days = models.IntegerField()
+    date_created = models.DateTimeField('date created', default=datetime.now())
+    date_updated = models.DateTimeField('date updated', null=True)
+
+    class Meta:
+        verbose_name = "SalaryInfo"
+        verbose_name_plural = "Employee SalaryInfo"
 
 
 class Department(models.Model):

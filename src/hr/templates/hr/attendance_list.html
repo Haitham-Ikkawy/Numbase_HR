@@ -9,31 +9,31 @@
     <div class="row">
         <div class="col-lg-6 col-lg-6">
             <h5 class="mt-2">Salary Details</h5>
-            <table class="table">
+            <table class="table table-bordered">
                 <tbody>
                     <tr>
                         <th>Hour rate</th>
                         <td><b class="text-danger">${{hour_rate}}/hour</b></td>
                     </tr>
                     <tr>
-                        <th>Salary bases on working hours</th>
-                        <td><b class="text-danger">${{salary_based_on_working_hours}}</b></td>
-                    </tr>
-                    <tr>
-                        <th>Salary bases on vacations</th>
-                        <td><b class="text-danger">${{salary_on_vacations}}</b></td>
-                    </tr>
-                    <tr>
-                        <th>Overall Salary</th>
-                        <td><b class="text-danger">${{overall_salary}}</b></td>
-                    </tr>
-                    <tr>
                         <th>Month total working hour</th>
-                        <td><b class="text-danger">{{month_total_working_hour_count}} hours</b></td>
+                        <td><b class="text-danger">{{salary_info.month_total_working_hour_count}} hours</b></td>
+                    </tr>
+                    <tr>
+                        <th>Salary based on month working hours</th>
+                        <td><b class="text-danger">${{salary_info.salary_based_on_working_hours}}</b></td>
                     </tr>
                     <tr>
                         <th>Total off days</th>
-                        <td><b class="text-danger">{{month_total_off_days}} Days</b></td>
+                        <td><b class="text-danger">{{salary_info.month_total_off_days}} Days</b></td>
+                    </tr>
+                    <tr>
+                        <th>Salary based on vacations</th>
+                        <td><b class="text-danger">${{salary_info.salary_on_vacations}}</b></td>
+                    </tr>
+                    <tr>
+                        <th>Overall Salary</th>
+                        <td><b class="text-danger">${{salary_info.overall_salary}}</b></td>
                     </tr>
                 </tbody>
             </table>

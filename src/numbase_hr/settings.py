@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+else:
+    EMAIL_BACKEND = 'post_office.EmailBackend'
 
 # Application definition
 
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'post_office',
+
     # my apps
     'account',
     'hr',

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Vacations, Attendance
+from .models import Vacations, Attendance, SalaryInfo
 from account.models import Account
 from .serializers import VacationsSerialise, AttendanceSerialise
 from django.http import JsonResponse
@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.http import QueryDict
 import dateutil.parser
 from datetime import datetime, date, timedelta
+from post_office import mail
 
 allowed_vacations_count = 15
 fixed_days_hours = 8
@@ -186,6 +187,7 @@ def attendance_list_view(request):
             is_checked_out = Attendance.objects.filter(user_id=user.id, check_out__date=datetime.now())
             user_obj = Account.objects.get(id=user.id)
             hour_rate = user_obj.hour_rate
+            context['hour_rate'] = hour_rate
         
         except Exception as e:
             return HttpResponse(e)
@@ -199,15 +201,64 @@ def attendance_list_view(request):
         if is_checked_out:
             context['is_checked_out'] = True
         
-        salary_based_on_working_hours, salary_based_on_vacations, overall_salary, month_total_working_hour_count, month_total_off_days = calculate_salary(user.id, hour_rate)
+        salary_based_on_working_hours,\
+            salary_based_on_vacations, \
+            overall_salary,\
+            month_total_working_hour_count,\
+            month_total_off_days = calculate_salary(user.id, hour_rate)
 
-        context['hour_rate'] = hour_rate
-        context['salary_based_on_working_hours'] = format(salary_based_on_working_hours, ".2f")
-        context['salary_on_vacations'] = format(salary_based_on_vacations, ".2f")
-        context['overall_salary'] = format(overall_salary, ".2f")
-        context['month_total_working_hour_count'] = month_total_working_hour_count
-        context['month_total_off_days'] = month_total_off_days
+        is_salary_info_exists = SalaryInfo.objects.filter(user_id=user.id, date_created__month=datetime.now().month).count()
 
+        salary_info_object = SalaryInfo.objects.get(user_id=user.id, date_created__month=datetime.now().month)
+
+        if is_salary_info_exists == 1:
+            salary_record_id = salary_info_object.id
+            try:
+                SalaryInfo.objects.filter(pk=salary_record_id).update(
+                    salary_based_on_working_hours=format(salary_based_on_working_hours, ".2f"),
+                    salary_on_vacations=format(salary_based_on_vacations, ".2f"),
+                    overall_salary=format(overall_salary, ".2f"),
+                    month_total_working_hour_count=month_total_working_hour_count,
+                    month_total_off_days=month_total_off_days,
+                    date_updated=datetime.now()
+                )
+
+            except Exception as e:
+                return HttpResponse(e)
+        else:
+
+            try:
+
+                create_salary_object = SalaryInfo.objects.create(
+                    user_id=user.id,
+                    salary_based_on_working_hours=format(salary_based_on_working_hours, ".2f"),
+                    salary_on_vacations=format(salary_based_on_vacations, ".2f"),
+                    overall_salary=format(overall_salary, ".2f"),
+                    month_total_working_hour_count=month_total_working_hour_count,
+                    month_total_off_days=month_total_off_days,
+                    date_created=datetime.now(),
+                )
+
+            except Exception as e:
+                return HttpResponse(e)
+
+        try:
+
+            salary_info_object = SalaryInfo.objects.get(user_id=user.id, date_created__month=datetime.now().month)
+            context['salary_info'] = salary_info_object
+
+            # email sender must be scheduled monthly (cron job)
+
+            if datetime.now().day == 1 and salary_info_object.date_updated.day == 1:
+                mail.send(
+                    user.email,
+                    'testingDjangoMailing@gmail.com',
+                    template='salaryInfo_email',
+                    context=context,
+                )
+
+        except Exception as e:
+            return HttpResponse(e)
 
     return render(request, "hr/attendance_list.html", context)
 
@@ -217,7 +268,10 @@ def attendance_json_list(request):
     current_user_id = request.user.id
     try:
 
-        attendance_json_format_list = Attendance.objects.filter(user_id=current_user_id, check_in__month=datetime.now().month)
+        attendance_json_format_list = Attendance.objects.filter(
+            user_id=current_user_id,
+            check_in__month=datetime.now().month
+        )
 
     except Exception as e:
 
@@ -244,13 +298,23 @@ def check_submit(request):
 
         try:
             if is_check_in:
-                create_attendance_object = Attendance.objects.create(check_in=datetime.now(), check_out=None, user_id=current_user_id, date_created=datetime.now())
+                create_attendance_object = Attendance.objects.create(
+                    check_in=datetime.now(),
+                    check_out=None,
+                    user_id=current_user_id,
+                    date_created=datetime.now()
+                )
 
             elif is_check_out:
                 
-                last_attandance = Attendance.objects.filter(user_id=current_user_id).last()
+                last_attendance = Attendance.objects.filter(user_id=current_user_id).last()
     
-                Attendance.objects.filter(pk=last_attandance.id).update(check_out=datetime.now(), attended=True, day_off=False, vacation_id=None)
+                Attendance.objects.filter(pk=last_attendance.id).update(
+                    check_out=datetime.now(),
+                    attended=True,
+                    day_off=False,
+                    vacation_id=None
+                )
             
             content = {'Data Saved Successfully'}
             return HttpResponse(content, 200)

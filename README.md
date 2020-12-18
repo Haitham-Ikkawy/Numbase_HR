@@ -42,11 +42,11 @@ Steps to run the project:
 
 Credentials:
 
-1)admin:
+1) admin:
         email:admin@test.com
         password:admin
         
-2)employee user:
+2) employee user:
         email:haithamikkawy@outlook.com
         password:test@test
         

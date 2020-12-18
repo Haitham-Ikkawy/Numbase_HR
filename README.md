@@ -29,13 +29,15 @@ Usecase Diagram:
 
 
 Steps to run the project:
-
-1) git clone git@github.com:Haitham-Ikkawy/Numbase_HR.git
-2) run "pip install -r requirements.txt"
-3) run "py manage.py makemigrations"
-4) run "py manage.py migrate"
-5) run "py manage.py loaddata DB_dump.json"
-6) run "py manage.py runserver"
+1) create a virtual environment via "virtualenv -p <python version>  <venv_name>" command
+2) run "git clone git@github.com:Haitham-Ikkawy/Numbase_HR.git" command (inside the virtualenv root directory)
+3) create a mysql database with "numbase" name
+4) run "Scripts\activate" command, within the project root directory
+5) run "pip install -r requirements.txt" command (inside Numbase_HR/src)
+6) run "py manage.py makemigrations" command
+7) run "py manage.py migrate" command
+8) run "py manage.py loaddata DB_dump.json" command
+9) run "py manage.py runserver"
 
 
 Credentials:

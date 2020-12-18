@@ -1,0 +1,873 @@
+[
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": [
+            "admin",
+            "logentry"
+        ],
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view permission",
+        "content_type": [
+            "auth",
+            "permission"
+        ],
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view group",
+        "content_type": [
+            "auth",
+            "group"
+        ],
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view content type",
+        "content_type": [
+            "contenttypes",
+            "contenttype"
+        ],
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view session",
+        "content_type": [
+            "sessions",
+            "session"
+        ],
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Email",
+        "content_type": [
+            "post_office",
+            "email"
+        ],
+        "codename": "add_email"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Email",
+        "content_type": [
+            "post_office",
+            "email"
+        ],
+        "codename": "change_email"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Email",
+        "content_type": [
+            "post_office",
+            "email"
+        ],
+        "codename": "delete_email"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Email",
+        "content_type": [
+            "post_office",
+            "email"
+        ],
+        "codename": "view_email"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Log",
+        "content_type": [
+            "post_office",
+            "log"
+        ],
+        "codename": "add_log"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Log",
+        "content_type": [
+            "post_office",
+            "log"
+        ],
+        "codename": "change_log"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Log",
+        "content_type": [
+            "post_office",
+            "log"
+        ],
+        "codename": "delete_log"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Log",
+        "content_type": [
+            "post_office",
+            "log"
+        ],
+        "codename": "view_log"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Email Template",
+        "content_type": [
+            "post_office",
+            "emailtemplate"
+        ],
+        "codename": "add_emailtemplate"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Email Template",
+        "content_type": [
+            "post_office",
+            "emailtemplate"
+        ],
+        "codename": "change_emailtemplate"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Email Template",
+        "content_type": [
+            "post_office",
+            "emailtemplate"
+        ],
+        "codename": "delete_emailtemplate"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Email Template",
+        "content_type": [
+            "post_office",
+            "emailtemplate"
+        ],
+        "codename": "view_emailtemplate"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Attachment",
+        "content_type": [
+            "post_office",
+            "attachment"
+        ],
+        "codename": "add_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Attachment",
+        "content_type": [
+            "post_office",
+            "attachment"
+        ],
+        "codename": "change_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Attachment",
+        "content_type": [
+            "post_office",
+            "attachment"
+        ],
+        "codename": "delete_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Attachment",
+        "content_type": [
+            "post_office",
+            "attachment"
+        ],
+        "codename": "view_attachment"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add account",
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "codename": "add_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change account",
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "codename": "change_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete account",
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "codename": "delete_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view account",
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "codename": "view_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Vacations",
+        "content_type": [
+            "hr",
+            "vacations"
+        ],
+        "codename": "add_vacations"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Vacations",
+        "content_type": [
+            "hr",
+            "vacations"
+        ],
+        "codename": "change_vacations"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Vacations",
+        "content_type": [
+            "hr",
+            "vacations"
+        ],
+        "codename": "delete_vacations"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Vacations",
+        "content_type": [
+            "hr",
+            "vacations"
+        ],
+        "codename": "view_vacations"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Attendance",
+        "content_type": [
+            "hr",
+            "attendance"
+        ],
+        "codename": "add_attendance"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Attendance",
+        "content_type": [
+            "hr",
+            "attendance"
+        ],
+        "codename": "change_attendance"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Attendance",
+        "content_type": [
+            "hr",
+            "attendance"
+        ],
+        "codename": "delete_attendance"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Attendance",
+        "content_type": [
+            "hr",
+            "attendance"
+        ],
+        "codename": "view_attendance"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add SalaryInfo",
+        "content_type": [
+            "hr",
+            "salaryinfo"
+        ],
+        "codename": "add_salaryinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change SalaryInfo",
+        "content_type": [
+            "hr",
+            "salaryinfo"
+        ],
+        "codename": "change_salaryinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete SalaryInfo",
+        "content_type": [
+            "hr",
+            "salaryinfo"
+        ],
+        "codename": "delete_salaryinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view SalaryInfo",
+        "content_type": [
+            "hr",
+            "salaryinfo"
+        ],
+        "codename": "view_salaryinfo"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Department",
+        "content_type": [
+            "hr",
+            "department"
+        ],
+        "codename": "add_department"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Department",
+        "content_type": [
+            "hr",
+            "department"
+        ],
+        "codename": "change_department"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Department",
+        "content_type": [
+            "hr",
+            "department"
+        ],
+        "codename": "delete_department"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Department",
+        "content_type": [
+            "hr",
+            "department"
+        ],
+        "codename": "view_department"
+    }
+},
+{
+    "model": "account.account",
+    "fields": {
+        "password": "pbkdf2_sha256$216000$TB18hOoXgq4I$Xiflnl/tJX6B/AAoEDQaUDOennUUJ7Qi17OrkomCK1g=",
+        "email": "admin@test.com",
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "phone_number": 0,
+        "job_description": null,
+        "hour_rate": 0.0,
+        "department": null,
+        "date_joined": "2020-12-18T12:17:36.612Z",
+        "last_login": "2020-12-18T13:41:26.827Z",
+        "is_admin": true,
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true
+    }
+},
+{
+    "model": "account.account",
+    "fields": {
+        "password": "pbkdf2_sha256$216000$4sKKPnybFCJC$kQvabnV+THtRwV9TYSiUHqiQxIBXkEbnEPmOQtdLOBg=",
+        "email": "haithamikkawy@outlook.com",
+        "username": "haithamikk",
+        "first_name": "haitham",
+        "last_name": "ikkawy",
+        "phone_number": 71538230,
+        "job_description": "Web Developer",
+        "hour_rate": 22.57,
+        "department": 1,
+        "date_joined": "2020-12-18T12:19:46.798Z",
+        "last_login": "2020-12-18T13:43:06.158Z",
+        "is_admin": false,
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "hr.vacations",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "description": "testing interval vacation 2",
+        "from_date": "2020-12-22",
+        "to_date": "2020-12-23",
+        "duration": 2
+    }
+},
+{
+    "model": "hr.vacations",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "description": "test interval vacation 2",
+        "from_date": "2020-12-03",
+        "to_date": "2020-12-08",
+        "duration": 6
+    }
+},
+{
+    "model": "hr.attendance",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "admin@test.com"
+        ],
+        "vacation": null,
+        "check_in": "2020-12-18T14:23:06.011Z",
+        "check_out": "2020-12-18T14:23:09.632Z",
+        "date_created": "2020-12-18T14:23:06.011Z",
+        "attended": true,
+        "day_off": false
+    }
+},
+{
+    "model": "hr.attendance",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "vacation": null,
+        "check_in": "2020-12-01T08:00:00Z",
+        "check_out": "2020-12-01T17:00:00Z",
+        "date_created": "2020-12-18T00:00:00Z",
+        "attended": true,
+        "day_off": false
+    }
+},
+{
+    "model": "hr.attendance",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "vacation": null,
+        "check_in": "2020-12-05T08:00:00Z",
+        "check_out": "2020-12-05T17:00:00Z",
+        "date_created": "2020-12-16T00:00:00Z",
+        "attended": true,
+        "day_off": false
+    }
+},
+{
+    "model": "hr.attendance",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "vacation": 2,
+        "check_in": null,
+        "check_out": null,
+        "date_created": "2020-12-18T15:32:23.528Z",
+        "attended": false,
+        "day_off": true
+    }
+},
+{
+    "model": "hr.attendance",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "vacation": 2,
+        "check_in": null,
+        "check_out": null,
+        "date_created": "2020-12-18T15:32:23.531Z",
+        "attended": false,
+        "day_off": true
+    }
+},
+{
+    "model": "hr.salaryinfo",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "haithamikkawy@outlook.com"
+        ],
+        "salary_based_on_working_hours": 406.26,
+        "salary_on_vacations": 1444.48,
+        "overall_salary": 1850.74,
+        "month_total_working_hour_count": 18,
+        "month_total_off_days": 8,
+        "date_created": "2020-12-18T15:02:19.835Z",
+        "date_updated": "2020-12-18T15:35:23.665Z"
+    }
+},
+{
+    "model": "hr.department",
+    "pk": 1,
+    "fields": {
+        "name": "IT",
+        "description": "System and IT Support"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2020-12-18T12:18:13.921Z",
+        "user": [
+            "admin@test.com"
+        ],
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "object_id": "2",
+        "object_repr": " ,haithamikk",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2020-12-18T12:18:45.097Z",
+        "user": [
+            "admin@test.com"
+        ],
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "object_id": "2",
+        "object_repr": " ,haithamikk",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2020-12-18T12:19:16.014Z",
+        "user": [
+            "admin@test.com"
+        ],
+        "content_type": [
+            "hr",
+            "department"
+        ],
+        "object_id": "1",
+        "object_repr": "IT",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2020-12-18T12:19:46.800Z",
+        "user": [
+            "admin@test.com"
+        ],
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "object_id": "3",
+        "object_repr": " ,haithamikk",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2020-12-18T12:20:12.497Z",
+        "user": [
+            "admin@test.com"
+        ],
+        "content_type": [
+            "account",
+            "account"
+        ],
+        "object_id": "3",
+        "object_repr": "haithamikkawy@outlook.com ,haithamikk",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Email\", \"First name\", \"Last name\", \"Phone number\", \"Job description\", \"Hour rate\", \"Department\"]}}]"
+    }
+}
+]
